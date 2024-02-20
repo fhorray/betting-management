@@ -39,15 +39,22 @@ const Martingales: React.FC<MartingalesProps> = () => {
       <TableCaption>A list amount of bets you'll do if you lose.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>Gle</TableHead>
+          <TableHead>Gale</TableHead>
           <TableHead>Bank Value</TableHead>
-          <TableHead>Bt Value</TableHead>
+          <TableHead>Bet Value</TableHead>
           <TableHead>Goal</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {betNumber.map((item, index) => (
-          <BetRow index={index} bet={bet} bank={bank} goal={goal} />
+        <TableRow key={index}>
+        <TableCell className="font-medium">
+          {index === 0 ? 'Initial' : index}
+        </TableCell>
+        <TableCell>{(bank - (betNumber[index - 1] || 0) * 2).toFixed(2)}</TableCell>
+        <TableCell>{((betNumber[index - 1] || 0) * 2).toFixed(2)}</TableCell>
+        <TableCell>{goal.toFixed(2)}</TableCell>
+      </TableRow>
         ))}
       </TableBody>
     </Table>

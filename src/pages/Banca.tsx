@@ -28,12 +28,6 @@ const Banca = () => {
     countNumber,
   } = useBankContext();
 
-  // let [bank, setBank] = React.useState<number>(0);
-  // let [bet, setBet] = React.useState<number>(0);
-  // let [goal, setGoal] = React.useState<number>(0);
-  // let [betNumber, setBetNumber] = React.useState<number[]>([]);
-  // let [countNumber, setCountNumber] = React.useState<number>(0);
-
   return (
     <section className="p-5 gap-5 flex flex-col">
       <Dialog>
@@ -42,7 +36,7 @@ const Banca = () => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Change Ban</DialogTitle>
+            <DialogTitle>Change Bank</DialogTitle>
             <DialogDescription>
               <BankForm setGoal={setGoal} setBank={setBank} setBet={setBet} />
             </DialogDescription>
@@ -51,8 +45,8 @@ const Banca = () => {
       </Dialog>
 
       <div className="flex gap-2">
-        <ContentCard title="Ban" bank={bank} />
-        <ContentCard title="Bt" bet={bet} />
+        <ContentCard title="Bank" bank={bank} />
+        <ContentCard title="Bet" bet={bet} />
         <ContentCard title="Goal" goal={goal} />
       </div>
 

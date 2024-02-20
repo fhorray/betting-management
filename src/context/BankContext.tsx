@@ -10,38 +10,38 @@ interface ContextValues {
   setGoal: React.Dispatch<React.SetStateAction<number>>;
   betNumber: number[];
   setBetNumber: React.Dispatch<React.SetStateAction<number[]>>;
-  countNumber: React.Dispatch<React.SetStateAction<number[]>>;
-  setCountNumber: React.Dispatch<React.SetStateAction<number[]>>;
+  countNumber: React.Dispatch<React.SetStateAction<number>>;
+  setCountNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // Criando o contexto
 const BankContext = createContext<ContextValues | undefined>(undefined);
 
-// Provedor do contexto que envolve toda a sua aplicação
+// Provedor do contexto que envolve toda a aplicação
 const BankContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [bank, setBank] = useState<number>(() => {
-    const storedBank = localStorage.getItem('bank');
-    return storedBank ? parseInt(storedBank, 10) : 0;
-  });
-
-  const [bet, setBet] = useState<number>(() => {
-    const tsoredBet = localStorage.getItem('bet');
-    return tsoredBet ? parseInt(tsoredBet, 10) : 0;
-  });
-
-  React.useEffect(() => {
-    localStorage.setItem('bank', bank.toString());
-  }, [bank]);
-
-  React.useEffect(() => {
-    localStorage.setItem('bet', bet.toString());
-  }, [bet]);
+  const [bank, setBank] = useState<number>(0);
+  const [bet, setBet] = useState<number>(0);
 
   const [goal, setGoal] = useState<number>(0);
   const [betNumber, setBetNumber] = useState<number[]>([]);
-  const [countNumber, setCountNumber] = useState<number>();
+  const [countNumber, setCountNumber] = useState<number>(0);
+
+
+  // Write Line function
+  React.useEffect(() => {
+    if (bank > 0 && bank >= bet && typeof countNumber === 'number') {
+      setBank((prevNumber) => prevNumber - bet);
+      setBet((prevBet) => prevBet * 2);
+      setBetNumber((prevBetNumber) => [...prevBetNumber, countNumber]);
+      setCountNumber((prevNumber) => prevNumber + 1);
+
+      console.log(
+        `${betNumber} - Banca atual: ${bank.toFixed(2)}, Bet: ${bet.toFixed(2)}`
+      );
+    }
+  }, [bank, bet, countNumber, setBetNumber]);
 
   const contextValues: ContextValues = {
     bank,
